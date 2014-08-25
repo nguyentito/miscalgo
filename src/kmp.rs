@@ -75,7 +75,7 @@ fn kmp_run_automaton<T:Eq>(needle: &[T], automaton: &[uint], haystack: &[T])
 // package everything into a single function for one-shot use
 // you can also preprocess once and search for the same pattern in
 // different strings using the two functions above
-fn string_search_kmp<T:Eq>(needle: &[T], haystack: &[T]) -> Vec<uint> {
+pub fn string_search_kmp<T:Eq>(needle: &[T], haystack: &[T]) -> Vec<uint> {
     let aut = kmp_build_automaton(needle);
     kmp_run_automaton(needle, aut.as_slice(), haystack)
 }
