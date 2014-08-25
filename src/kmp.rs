@@ -36,7 +36,8 @@ fn kmp_build_automaton<T:Eq>(p: &[T]) -> Vec<uint> {
     let mut j = 0;
     for i in range(1, p.len()) {
         // invariant: 0 <= j <= p.len() - 1 at this point of the loop
-        f.push(if p[i] == p[j] { f[j] } else { j }); 
+        let fj = f[j]; // copy f[j] now, no need to borrow f later
+        f.push(if p[i] == p[j] { fj } else { j }); 
         while j != initial_state && p[i] != p[j] {
             j = f[j];
         }
