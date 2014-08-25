@@ -1,9 +1,14 @@
+pub fn is_palindrome<T:Eq>(arr: &[T]) -> bool {
+    let l = arr.len();
+    range(0, l/2).all(|i| arr[i] == arr[l-i-1])
+}
+
 // Manacher's algorithm
 // direct translation of code from
 // http://algs4.cs.princeton.edu/53substring/Manacher.java.html
 // (only differences: using an enum & parametric polymorphism)
 
-fn lps_manacher<T:Clone+Eq>(arr: &[T]) -> (uint, uint) {
+pub fn lps_manacher<T:Clone+Eq>(arr: &[T]) -> (uint, uint) {
 
     // TODO: once we get DST, replace Vec<T> with ~[T]
     // since we don't need to grow the array
