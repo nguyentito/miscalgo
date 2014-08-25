@@ -21,14 +21,14 @@
 // length n+1.
 
 
-static initial_state: uint = std::uint::MAX;
+static initial_state: uint = ::std::uint::MAX;
 #[inline]
-fn successor_state(j: uint) {
-    if j == initial_state { 0 } else { j + 1 };
+fn successor_state(j: uint) -> uint {
+    if j == initial_state { 0 } else { j + 1 }
 } // hopefully this just compiles into a +1 with overflow
 
 // computes the "failure array" with dynamic programming
-fn kmp_build_automaton<T:Eq>(p: &[T}) -> Vec<uint> {
+fn kmp_build_automaton<T:Eq>(p: &[T]) -> Vec<uint> {
     let num_states = p.len() + 1; // excluding the unrepresented initial state
     let mut f = Vec::with_capacity(num_states);
 
@@ -47,7 +47,8 @@ fn kmp_build_automaton<T:Eq>(p: &[T}) -> Vec<uint> {
     return f;
 }
 
-fn kmp_run_automaton<T:Eq>(needle: &[T], automaton: &[uint], haystack: &[T]) {
+fn kmp_run_automaton<T:Eq>(needle: &[T], automaton: &[uint], haystack: &[T])
+                           -> Vec<uint> {
     let mut i = 0; // current character in haystack
     let mut j = 0; // automaton state
     let l = needle.len();

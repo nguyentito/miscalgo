@@ -36,7 +36,7 @@ fn lps_manacher<T:Clone+Eq>(arr: &[T]) -> (uint, uint) {
         let mirror = 2*center - i;
         
         if right > i {
-            *lps.get_mut(i) = std::cmp::min(right - i, lps[mirror]);
+            *lps.get_mut(i) = ::std::cmp::min(right - i, lps[mirror]);
         }
 
         while vec[i + 1 + lps[i]] == vec[i - 1 - lps[i]] {
