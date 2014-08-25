@@ -33,7 +33,7 @@ pub fn lps_manacher<T:Clone+Eq>(arr: &[T]) -> (uint, uint) {
     let vec = preprocess(arr);
     let n = vec.len();
 
-    let mut lps = Vec::from_elem(0, n);
+    let mut lps = Vec::from_elem(n, 0);
     let mut center = 0;
     let mut right = 0;
 
@@ -46,7 +46,7 @@ pub fn lps_manacher<T:Clone+Eq>(arr: &[T]) -> (uint, uint) {
 
         while vec[i + 1 + lps[i]] == vec[i - 1 - lps[i]] {
             // wait what? this doesn't work?
-//            lps[i] += 1;
+            // lps[i] += 1;
             *lps.get_mut(i) += 1;
         }
 
