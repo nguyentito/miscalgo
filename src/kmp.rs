@@ -28,7 +28,7 @@ fn successor_state(j: uint) -> uint {
 } // hopefully this just compiles into a +1 with overflow
 
 // computes the "failure array" with dynamic programming
-fn kmp_build_automaton<T:Eq>(p: &[T]) -> Vec<uint> {
+pub fn build_automaton<T:Eq>(p: &[T]) -> Vec<uint> {
     let num_states = p.len() + 1; // excluding the unrepresented initial state
     let mut f = Vec::with_capacity(num_states);
 
@@ -48,18 +48,19 @@ fn kmp_build_automaton<T:Eq>(p: &[T]) -> Vec<uint> {
     return f;
 }
 
-fn kmp_run_automaton<T:Eq>(needle: &[T], automaton: &[uint], haystack: &[T])
-                           -> Vec<uint> {
+pub fn run_automaton<T:Eq>(needle: &[T], automaton: &[uint], haystack: &[T])
+                           -> Vec<uint>
+{
     let mut i = 0; // current character in haystack
     let mut j = 0; // automaton state
     let l = needle.len();
     let mut occ = Vec::new();
 
-    while i < haystack.len() { 
+    while i < haystack.len() {
         if j == l { // final state reached: occurrence found
             // push index of the start of the match for convenience
-            // i is the index of the end
-            occ.push(i - l + 1);
+            // i is the index AFTER the last character of the needle
+            occ.push(i - l);
             j = automaton[j];
         } else if j == initial_state || haystack[i] == needle[j] {
             i += 1;
@@ -68,6 +69,11 @@ fn kmp_run_automaton<T:Eq>(needle: &[T], automaton: &[uint], haystack: &[T])
             j = automaton[j];
         }
     }
+    // special case: match at the very end
+    if j == l {
+        occ.push(haystack.len() - l);
+    }
+
     return occ;
 }
 
@@ -75,9 +81,9 @@ fn kmp_run_automaton<T:Eq>(needle: &[T], automaton: &[uint], haystack: &[T])
 // package everything into a single function for one-shot use
 // you can also preprocess once and search for the same pattern in
 // different strings using the two functions above
-pub fn string_search_kmp<T:Eq>(needle: &[T], haystack: &[T]) -> Vec<uint> {
-    let aut = kmp_build_automaton(needle);
-    kmp_run_automaton(needle, aut.as_slice(), haystack)
+pub fn string_search<T:Eq>(needle: &[T], haystack: &[T]) -> Vec<uint> {
+    let aut = build_automaton(needle);
+    run_automaton(needle, aut.as_slice(), haystack)
 }
 
 
