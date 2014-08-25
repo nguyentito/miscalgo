@@ -1,19 +1,25 @@
 // Knuth-Morris-Pratt algorithm
-// cf. Jeff Erickson's lecture notes
-
-// The algorithm is based on an automaton with n+1 states,
-// numbered from 0 to n (n = pattern/needle length)
-// state k is reached after succesfully consuming a prefix of length k,
-// i.e. after the (k-1)th character (in 0-based indexing, when k >= 1)
-// has been matched.
+// cf. Jeff Erickson's lecture notes on Algorithms
+//
+// The algorithm is based on an automaton with n+2 states
+// (n = pattern/needle length):
+// * an initial state ($ in Erickson, represented here by uint::MAX
+// * n+1 states numbered from 0 to n
+//   state k is reached after succesfully consuming a prefix of length k,
+//   i.e. after the (k-1)th character of the needle (in 0-based indexing,
+//   when k >= 1) has been matched against the haystack.
+// Note that the state with label n is the final state, indicating a
+// successful match; it is denoted "!" in Erickson.
+//
 // Transitions:
-// i -(ith character)-> i+1 -- implicit
-// i -(epsilon)-> j < i -- stored in "failure array"
-// there is exactly 1 epsilon-move outgoing from all states except 0
-// the array of epsilon-moves is padded with an useless value at 0
-// in order to simplify things and avoid off-by-one errors
+// * i -(ith character)-> i+1   -- implicit
+// * i -(epsilon)-> $ or j < i  -- stored in "failure array"
+// * $ -(any character)-> 0     -- implicit
+// There is exactly 1 epsilon-move outgoing from all states except
+// $. That includes the final state, unlike in Erickson, so that we
+// may find all matches, not just one). We store them in an array of
+// length n+1.
 
-// ACTUALLY there are n+2 states!!!!! TODO update comments
 
 static initial_state: uint = std::uint::MAX;
 #[inline]
@@ -65,9 +71,11 @@ fn kmp_run_automaton<T:Eq>(needle: &[T], automaton: &[uint], haystack: &[T]) {
 
 
 // package everything into a single function for one-shot use
-// you can also preprocess once and search for the same pattern
-// in different strings using the two functions above
+// you can also preprocess once and search for the same pattern in
+// different strings using the two functions above
 fn string_search_kmp<T:Eq>(needle: &[T], haystack: &[T]) -> Vec<uint> {
+    let aut = kmp_build_automaton(needle);
+    kmp_run_automaton(needle, aut.as_slice(), haystack)
 }
 
 
