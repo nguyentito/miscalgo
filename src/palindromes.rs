@@ -20,8 +20,9 @@ pub fn lps_manacher<T:Clone+Eq>(arr: &[T]) -> (uint, uint) {
 
     fn preprocess<T:Clone>(arr: &[T]) -> Vec<EltSpace<T>> {
         let n = arr.len();
-        let mut vec = Vec::with_capacity(2*n+3);
+        let mut vec = Vec::with_capacity(2*n+5);
         vec.push(Start);
+        vec.push(Mid);
         for i in range(0,n) {
             vec.push(Symb(arr[i].clone()));
             vec.push(Mid);
