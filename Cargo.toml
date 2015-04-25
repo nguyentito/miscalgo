@@ -1,9 +1,0 @@
-[package]
-
-name = "stringology"
-version = "0.1.0"
-authors = ["Nguyễn Lê Thành Dũng <nltd@nguyentito.eu>"]
-
-[dependencies.quickcheck]
-git = "https://github.com/BurntSushi/quickcheck"
-
