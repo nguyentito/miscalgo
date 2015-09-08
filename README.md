@@ -2,9 +2,11 @@ A repository for some throw-away algorithmic code I wrote at some
 point in my life. Because there's not enough useless stuff on GitHub
 already.
 
+* C
+  * Parallel merge sort
 * Haskell
-  * calculator for arithmetic expressions with an ad-hoc parser
-    (written in high school ; the code is rather ugly)
+  * Calculator for arithmetic expressions with an ad-hoc parser
+    (written in high school; the code is rather ugly)
 * OCaml
   * Huffman encoding (also written a very long time ago!)
   * Quadtree-based solution to a Prologin exercise (this is *not* the
