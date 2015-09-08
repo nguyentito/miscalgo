@@ -13,6 +13,8 @@ already.
     intended solution, but it works and its performance is good
     enough)
   * Cycle decomposition for permutations
+  * Exhaustive search in Cantor space
+    ("seemingly impossible functional programs")
 * Ruby
   * Optimal bitonic tour (a classic exercise from CLRS)
   * Maximum antichain in a finite poset (using bipartite maximum
