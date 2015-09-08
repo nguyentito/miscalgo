@@ -12,6 +12,7 @@ already.
   * Quadtree-based solution to a Prologin exercise (this is *not* the
     intended solution, but it works and its performance is good
     enough)
+  * Cycle decomposition for permutations
 * Ruby
   * Optimal bitonic tour (a classic exercise from CLRS)
   * Maximum antichain in a finite poset (using bipartite maximum
