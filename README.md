@@ -7,6 +7,8 @@ already.
 * Haskell
   * Calculator for arithmetic expressions with an ad-hoc parser
     (written in high school; the code is rather ugly)
+  * Longest increasing subsequence (using a binary tree instead of an
+    array)
 * OCaml
   * Huffman encoding (also written a very long time ago!)
   * Quadtree-based solution to a Prologin exercise (this is *not* the
